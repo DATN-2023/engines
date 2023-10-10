@@ -1,0 +1,38 @@
+
+version: '3.7'
+services:
+  mongodb_container:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME:
+      MONGO_INITDB_ROOT_PASSWORD:
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongodb_data_container_2:/data/db
+      - ./mongo-file:/file
+    networks:
+      - social
+
+  redis:
+    image: "redis:alpine"
+
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis-data:/var/lib/redis
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+      - ./redis-dt:/data
+    restart: always
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    networks:
+      - social
+
+volumes:
+  mongodb_data_container_2:
+  file2:
+
+networks:
+  social:
+    driver: bridge
