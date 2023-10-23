@@ -36,8 +36,8 @@ services:
       - /media/NewHDD/erp/.docker/rabbitmq/data/:/var/lib/rabbitmq/
       - /media/NewHDD/erp/.docker/rabbitmq/logs/:/var/log/rabbitmq/
     ports:
-      - 15672:15672
-      - 5672:5672
+      - "15672:15672"
+      - "5672:5672"
     environment:
       # provide your credentials here
       - RABBITMQ_DEFAULT_PASS=wilad0304
