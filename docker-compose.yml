@@ -29,6 +29,39 @@ services:
     networks:
       - social
 
+  rabbitmq:
+    image: rabbitmq:3.12.7-management
+    volumes:
+      - /media/NewHDD/erp/.docker/rabbitmq/etc/:/var/run/rabbitmq/
+      - /media/NewHDD/erp/.docker/rabbitmq/data/:/var/lib/rabbitmq/
+      - /media/NewHDD/erp/.docker/rabbitmq/logs/:/var/log/rabbitmq/
+    ports:
+      - 15672:15672
+      - 5672:5672
+    environment:
+      # provide your credentials here
+      - RABBITMQ_DEFAULT_PASS=wilad0304
+      - RABBITMQ_DEFAULT_USER=wilad
+    networks:
+      - social
+    restart: always
+
+  minio:
+    image: minio/minio
+    container_name: minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - ./storage:/data
+    environment:
+      MINIO_ROOT_USER: quyhot
+      MINIO_ROOT_PASSWORD: 123456789
+    command: server --console-address ":9001" /data
+    networks:
+      - social
+    restart: always
+
 volumes:
   mongodb_data_container_2:
   file2:
