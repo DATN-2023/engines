@@ -64,7 +64,6 @@ services:
 
 volumes:
   mongodb_data_container_2:
-  file2:
 
 networks:
   social:
