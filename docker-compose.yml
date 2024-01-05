@@ -126,7 +126,7 @@ services:
     restart: always
 
   upload:
-    image: "sn-frontend:latest"
+    image: "sn-upload-service:latest"
     ports:
       - '8103:3000'
     environment:
@@ -149,7 +149,7 @@ services:
     restart: always
 
   chat:
-    image: "sn-chat:latest"
+    image: "sn-chat-service:latest"
     ports:
       - '8104:3000'
     environment:
@@ -168,7 +168,7 @@ services:
     restart: always
 
   group:
-    image: "sn-group:latest"
+    image: "sn-group-service:latest"
     ports:
       - '8105:3000'
     environment:
@@ -208,7 +208,7 @@ services:
     restart: always
 
   user:
-    image: "sn-user:latest"
+    image: "sn-user-service:latest"
     ports:
       - '8107:3000'
     environment:
@@ -227,7 +227,7 @@ services:
     restart: always
 
   notification:
-    image: "sn-notification:latest"
+    image: "sn-notification-service:latest"
     ports:
       - '8108:3000'
     environment:
