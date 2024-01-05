@@ -1,4 +1,3 @@
-
 version: '3.7'
 services:
   mongodb:
@@ -65,7 +64,7 @@ services:
   appserver:
     image: "sn-app-server:latest"
     ports:
-      - '8009:3000'
+      - '8100:3000'
     environment:
       PORT: '3000'
       TZ: 'Asia/Bangkok'
@@ -77,14 +76,16 @@ services:
       SECRET_KEY_CMS: 'cur$$1223456ABC@!$$jl1haG'
       AUTHORIZATION_CMS_URL: "http://appserver:3000/authorization"
       INTERNAL_TOKEN: '123'
+      REDIS_HOST: 'redis'
+      REDIS_PORT: '6379'
     networks:
-      - carpla
+      - social
     restart: always
 
   feed:
     image: "sn-feed-service:latest"
     ports:
-      - '8009:3000'
+      - '8101:3000'
     environment:
       PORT: '3000'
       TZ: 'Asia/Bangkok'
@@ -96,8 +97,202 @@ services:
       SECRET_KEY_CMS: 'cur$$1223456ABC@!$$jl1haG'
       AUTHORIZATION_CMS_URL: "http://appserver:3000/authorization"
       INTERNAL_TOKEN: '123'
+      RABBIT_HOST: 'rabbitmq'
+      RABBIT_PORT: '5672'
+      RABBIT_USER: 'wilad'
+      RABBIT_PASS: 'wilad0304'
     networks:
-      - carpla
+      - social
+    restart: always
+
+  web:
+    image: "sn-frontend:latest"
+    ports:
+      - '8102:3000'
+    environment:
+      PORT: '3000'
+      TZ: 'Asia/Bangkok'
+      DB: 'sn-feed-service'
+      DB_USER: 'egosnet'
+      DB_PASS: 'pPJscOMYgBYHtwY'
+      DB_SERVERS: 'mongodb:27017'
+      SECRET_KEY: 'cur$$123$$jl1haG'
+      SECRET_KEY_CMS: 'cur$$1223456ABC@!$$jl1haG'
+      AUTHORIZATION_CMS_URL: "http://appserver:3000/authorization"
+      APPSERVER_URL: "http://appserver:3000/authorization"
+      INTERNAL_TOKEN: '123'
+    networks:
+      - social
+    restart: always
+
+  upload:
+    image: "sn-frontend:latest"
+    ports:
+      - '8103:3000'
+    environment:
+      PORT: '3000'
+      TZ: 'Asia/Bangkok'
+      DB: 'sn-upload-service'
+      DB_USER: 'egosnet'
+      DB_PASS: 'pPJscOMYgBYHtwY'
+      DB_SERVERS: 'mongodb:27017'
+      SECRET_KEY: 'cur$$123$$jl1haG'
+      SECRET_KEY_CMS: 'cur$$1223456ABC@!$$jl1haG'
+      AUTHORIZATION_CMS_URL: "http://appserver:3000/authorization"
+      INTERNAL_TOKEN: '123'
+      MINIO_ENDPOINT: 'minio'
+      MINIO_PORT: '9000'
+      MINIO_ACCESSKEY: '9000'
+      MINIO_SECRETKEY: '9000'
+    networks:
+      - social
+    restart: always
+
+  chat:
+    image: "sn-chat:latest"
+    ports:
+      - '8104:3000'
+    environment:
+      PORT: '3000'
+      TZ: 'Asia/Bangkok'
+      DB: 'sn-chat-service'
+      DB_USER: 'egosnet'
+      DB_PASS: 'pPJscOMYgBYHtwY'
+      DB_SERVERS: 'mongodb:27017'
+      SECRET_KEY: 'cur$$123$$jl1haG'
+      SECRET_KEY_CMS: 'cur$$1223456ABC@!$$jl1haG'
+      AUTHORIZATION_CMS_URL: "http://appserver:3000/authorization"
+      INTERNAL_TOKEN: '123'
+    networks:
+      - social
+    restart: always
+
+  group:
+    image: "sn-group:latest"
+    ports:
+      - '8105:3000'
+    environment:
+      PORT: '3000'
+      TZ: 'Asia/Bangkok'
+      DB: 'sn-group-service'
+      DB_USER: 'egosnet'
+      DB_PASS: 'pPJscOMYgBYHtwY'
+      DB_SERVERS: 'mongodb:27017'
+      SECRET_KEY: 'cur$$123$$jl1haG'
+      SECRET_KEY_CMS: 'cur$$1223456ABC@!$$jl1haG'
+      AUTHORIZATION_CMS_URL: "http://appserver:3000/authorization"
+      INTERNAL_TOKEN: '123'
+    networks:
+      - social
+    restart: always
+
+  customer:
+    image: "sn-customer:latest"
+    ports:
+      - '8106:3000'
+    environment:
+      PORT: '3000'
+      TZ: 'Asia/Bangkok'
+      DB: 'sn-customer-service'
+      DB_USER: 'egosnet'
+      DB_PASS: 'pPJscOMYgBYHtwY'
+      DB_SERVERS: 'mongodb:27017'
+      SECRET_KEY: 'cur$$123$$jl1haG'
+      SECRET_KEY_CMS: 'cur$$1223456ABC@!$$jl1haG'
+      AUTHORIZATION_CMS_URL: "http://appserver:3000/authorization"
+      INTERNAL_TOKEN: '123'
+      REDIS_HOST: 'redis'
+      REDIS_PORT: '6379'
+    networks:
+      - social
+    restart: always
+
+  user:
+    image: "sn-user:latest"
+    ports:
+      - '8107:3000'
+    environment:
+      PORT: '3000'
+      TZ: 'Asia/Bangkok'
+      DB: 'sn-user-service'
+      DB_USER: 'egosnet'
+      DB_PASS: 'pPJscOMYgBYHtwY'
+      DB_SERVERS: 'mongodb:27017'
+      SECRET_KEY: 'cur$$123$$jl1haG'
+      SECRET_KEY_CMS: 'cur$$1223456ABC@!$$jl1haG'
+      AUTHORIZATION_CMS_URL: "http://appserver:3000/authorization"
+      INTERNAL_TOKEN: '123'
+    networks:
+      - social
+    restart: always
+
+  notification:
+    image: "sn-notification:latest"
+    ports:
+      - '8108:3000'
+    environment:
+      PORT: '3000'
+      TZ: 'Asia/Bangkok'
+      DB: 'sn-notification-service'
+      DB_USER: 'egosnet'
+      DB_PASS: 'pPJscOMYgBYHtwY'
+      DB_SERVERS: 'mongodb:27017'
+      SECRET_KEY: 'cur$$123$$jl1haG'
+      SECRET_KEY_CMS: 'cur$$1223456ABC@!$$jl1haG'
+      AUTHORIZATION_CMS_URL: "http://appserver:3000/authorization"
+      INTERNAL_TOKEN: '123'
+      RABBIT_HOST: 'rabbitmq'
+      RABBIT_PORT: '5672'
+      RABBIT_USER: 'wilad'
+      RABBIT_PASS: 'wilad0304'
+    networks:
+      - social
+    restart: always
+
+  sdp:
+    image: "sn-sdp:latest"
+    ports:
+      - '8109:3000'
+    environment:
+      PORT: '3000'
+      TZ: 'Asia/Bangkok'
+      DB_SERVERS: 'mongodb:27017'
+      SECRET_KEY: 'cur$$123$$jl1haG'
+      SECRET_KEY_CMS: 'cur$$1223456ABC@!$$jl1haG'
+      AUTHORIZATION_CMS_URL: "http://appserver:3000/authorization"
+      FEED_URL: "http://feed:3000"
+      UPLOAD_URL: "http://upload:3000"
+      CUSTOMER_URL: "http://customer:3000"
+      USER_URL: "http://user:3000"
+      GROUP_URL: "http://group:3000"
+      NOTIFICATION_URL: "http://notification:3000"
+      CHAT_URL: "http://chat:3000"
+      INTERNAL_TOKEN: '123'
+    networks:
+      - social
+    restart: always
+
+  cdc:
+    image: "sn-cdc:latest"
+    ports:
+      - '8110:3000'
+    environment:
+      PORT: '3000'
+      TZ: 'Asia/Bangkok'
+      DB_SERVERS: 'mongodb:27017'
+      SECRET_KEY: 'cur$$123$$jl1haG'
+      SECRET_KEY_CMS: 'cur$$1223456ABC@!$$jl1haG'
+      AUTHORIZATION_CMS_URL: "http://appserver:3000/authorization"
+      FEED_URL: "http://feed:3000"
+      UPLOAD_URL: "http://upload:3000"
+      CUSTOMER_URL: "http://customer:3000"
+      USER_URL: "http://user:3000"
+      GROUP_URL: "http://group:3000"
+      NOTIFICATION_URL: "http://notification:3000"
+      CHAT_URL: "http://chat:3000"
+      INTERNAL_TOKEN: '123'
+    networks:
+      - social
     restart: always
 
 
