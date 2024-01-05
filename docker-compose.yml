@@ -203,6 +203,10 @@ services:
       INTERNAL_TOKEN: '123'
       REDIS_HOST: 'redis'
       REDIS_PORT: '6379'
+      RABBIT_HOST: 'rabbitmq'
+      RABBIT_PORT: '5672'
+      RABBIT_USER: 'wilad'
+      RABBIT_PASS: 'wilad0304'
     networks:
       - social
     restart: always
@@ -222,6 +226,10 @@ services:
       SECRET_KEY_CMS: 'cur$$1223456ABC@!$$jl1haG'
       AUTHORIZATION_CMS_URL: "http://appserver:3000/authorization"
       INTERNAL_TOKEN: '123'
+      RABBIT_HOST: 'rabbitmq'
+      RABBIT_PORT: '5672'
+      RABBIT_USER: 'wilad'
+      RABBIT_PASS: 'wilad0304'
     networks:
       - social
     restart: always
