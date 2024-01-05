@@ -142,8 +142,8 @@ services:
       INTERNAL_TOKEN: '123'
       MINIO_ENDPOINT: 'minio'
       MINIO_PORT: '9000'
-      MINIO_ACCESSKEY: '9000'
-      MINIO_SECRETKEY: '9000'
+      MINIO_ACCESSKEY: '7E5a23Hr2atfsy7d4Ipu'
+      MINIO_SECRETKEY: 'D6IqqvQbRgy1kGIO0T0iIuJj79vNtA8CjNsQRndN'
     networks:
       - social
     restart: always
