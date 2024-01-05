@@ -135,7 +135,7 @@ services:
       AUTHORIZATION_CMS_URL: "http://appserver:3000/authorization"
       INTERNAL_TOKEN: '123'
       MINIO_ENDPOINT: 'minio.egosnet.click'
-      MINIO_PORT: '80'
+      MINIO_PORT: '443'
       MINIO_ACCESSKEY: '7E5a23Hr2atfsy7d4Ipu'
       MINIO_SECRETKEY: 'D6IqqvQbRgy1kGIO0T0iIuJj79vNtA8CjNsQRndN'
     networks:
