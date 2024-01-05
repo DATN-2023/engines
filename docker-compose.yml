@@ -105,25 +105,17 @@ services:
       - social
     restart: always
 
-#  web:
-#    image: "sn-frontend:latest"
-#    ports:
-#      - '8102:3000'
-#    environment:
-#      PORT: '3000'
-#      TZ: 'Asia/Bangkok'
-#      DB: 'sn-feed-service'
-#      DB_USER: 'egosnet'
-#      DB_PASS: 'pPJscOMYgBYHtwY'
-#      DB_SERVERS: 'mongodb:27017'
-#      SECRET_KEY: 'cur$$123$$jl1haG'
-#      SECRET_KEY_CMS: 'cur$$1223456ABC@!$$jl1haG'
-#      AUTHORIZATION_CMS_URL: "http://appserver:3000/authorization"
-#      APPSERVER_URL: "http://appserver:3000/authorization"
-#      INTERNAL_TOKEN: '123'
-#    networks:
-#      - social
-#    restart: always
+  web:
+    image: "sn-frontend:latest"
+    ports:
+      - '8102:80'
+    environment:
+      PORT: '3000'
+      TZ: 'Asia/Bangkok'
+    networks:
+      - social
+    restart: always
+
 
   upload:
     image: "sn-upload-service:latest"
