@@ -74,7 +74,7 @@ services:
       DB_SERVERS: 'mongodb:27017'
       SECRET_KEY: 'cur$$123$$jl1haG'
       SECRET_KEY_CMS: 'cur$$1223456ABC@!$$jl1haG'
-      CUSTOMER_URL: "http://appserver:3000"
+      CUSTOMER_URL: "http://customer:3000"
       SDP_URL: "http://sdp:3000"
       CDC_URL: "http://cdc:3000"
       INTERNAL_TOKEN: '123'
