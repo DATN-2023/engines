@@ -1,11 +1,11 @@
 
 version: '3.7'
 services:
-  mongodb_container:
+  mongodb:
     image: mongo:latest
     environment:
-      MONGO_INITDB_ROOT_USERNAME:
-      MONGO_INITDB_ROOT_PASSWORD:
+      - MONGO_INITDB_ROOT_USERNAME=egosnet
+      - MONGO_INITDB_ROOT_PASSWORD=pPJscOMYgBYHtwY
     ports:
       - 27017:27017
     volumes:
@@ -61,6 +61,45 @@ services:
     networks:
       - social
     restart: always
+
+  appserver:
+    image: "sn-app-server:latest"
+    ports:
+      - '8009:3000'
+    environment:
+      PORT: '3000'
+      TZ: 'Asia/Bangkok'
+      DB: ''
+      DB_USER: 'egosnet'
+      DB_PASS: 'pPJscOMYgBYHtwY'
+      DB_SERVERS: 'mongodb:27017'
+      SECRET_KEY: 'cur$$123$$jl1haG'
+      SECRET_KEY_CMS: 'cur$$1223456ABC@!$$jl1haG'
+      AUTHORIZATION_CMS_URL: "http://appserver:3000/authorization"
+      INTERNAL_TOKEN: '123'
+    networks:
+      - carpla
+    restart: always
+
+  feed:
+    image: "sn-feed-service:latest"
+    ports:
+      - '8009:3000'
+    environment:
+      PORT: '3000'
+      TZ: 'Asia/Bangkok'
+      DB: 'sn-feed-service'
+      DB_USER: 'egosnet'
+      DB_PASS: 'pPJscOMYgBYHtwY'
+      DB_SERVERS: 'mongodb:27017'
+      SECRET_KEY: 'cur$$123$$jl1haG'
+      SECRET_KEY_CMS: 'cur$$1223456ABC@!$$jl1haG'
+      AUTHORIZATION_CMS_URL: "http://appserver:3000/authorization"
+      INTERNAL_TOKEN: '123'
+    networks:
+      - carpla
+    restart: always
+
 
 volumes:
   mongodb_data_container_2:
