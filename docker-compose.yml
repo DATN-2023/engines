@@ -135,7 +135,7 @@ services:
       INTERNAL_TOKEN: '123'
       MINIO_ENDPOINT: 'minio.egosnet.click'
       MINIO_PORT: '80'
-      MINIO_USESSL: true
+      MINIO_USESSL: false
       MINIO_ACCESSKEY: '7E5a23Hr2atfsy7d4Ipu'
       MINIO_SECRETKEY: 'D6IqqvQbRgy1kGIO0T0iIuJj79vNtA8CjNsQRndN'
     networks:
