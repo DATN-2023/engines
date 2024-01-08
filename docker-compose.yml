@@ -61,6 +61,25 @@ services:
       - social
     restart: always
 
+  thumbor:
+    image: ghcr.io/minimalcompact/thumbor:latest
+    environment:
+      - LOG_LEVEL=info
+      - MIXED_STORAGE_FILE_STORAGE=thumbor.storages.redis_storage
+      - MIXED_STORAGE_CRYPTO_STORAGE=thumbor.storages.redis_storage
+      - MIXED_STORAGE_DETECTOR_STORAGE=thumbor.storages.redis_storage
+      - FILE_STORAGE_ROOT_PATH=/tmp/mypath
+      - REDIS_STORAGE_SERVER_HOST=localhost
+      - REDIS_STORAGE_SERVER_PORT=6379
+      - REDIS_STORAGE_SERVER_DB=0
+    ports:
+      - '8888:80'
+    networks:
+      - social
+    #    volumes:
+    #      - thumbor_data:./data
+    restart: always
+
   appserver:
     image: "sn-app-server:latest"
     ports:
