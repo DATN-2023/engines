@@ -264,6 +264,7 @@ services:
       SECRET_KEY: 'cur$$123$$jl1haG'
       SECRET_KEY_CMS: 'cur$$1223456ABC@!$$jl1haG'
       AUTHORIZATION_CMS_URL: "http://appserver:3000/authorization"
+      USER_URL: "http://user:3000"
       INTERNAL_TOKEN: '123'
       RABBIT_HOST: 'rabbitmq'
       RABBIT_PORT: '5672'
